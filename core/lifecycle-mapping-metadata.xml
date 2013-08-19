@@ -8,6 +8,7 @@
 				<versionRange>[1.0,)</versionRange>
 				<goals>
 					<goal>unpack</goal>
+					<goal>build-classpath</goal>
 				</goals>
 			</pluginExecutionFilter>
 			<action>
@@ -16,5 +17,6 @@
 				</configurator>
 			</action>
 		</pluginExecution>
+		
 	</pluginExecutions>
 </lifecycleMappingMetadata>

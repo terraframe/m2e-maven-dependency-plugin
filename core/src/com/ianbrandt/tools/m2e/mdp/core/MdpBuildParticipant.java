@@ -24,6 +24,8 @@ public class MdpBuildParticipant extends MojoExecutionBuildParticipant {
 	private static final String ARTIFACT_ITEMS_PROPERTY = "artifactItems";
 
 	private static final String OUTPUT_DIRECTORY_PROPERTY = "outputDirectory";
+	
+	private static final String OUTPUT_FILE_PROPERTY = "outputFile";
 
 	public MdpBuildParticipant(MojoExecution execution) {
 
@@ -62,6 +64,9 @@ public class MdpBuildParticipant extends MojoExecutionBuildParticipant {
 
 		final File globalOutputDirectory = maven.getMojoParameterValue(getSession(), mojoExecution,
 				OUTPUT_DIRECTORY_PROPERTY, File.class);
+		
+		final File outputFile = maven.getMojoParameterValue(getSession(), mojoExecution,
+				OUTPUT_FILE_PROPERTY, File.class);
 
 		final List<?> artifactItems = maven.getMojoParameterValue(getSession(), mojoExecution, ARTIFACT_ITEMS_PROPERTY,
 				List.class);
@@ -86,6 +91,10 @@ public class MdpBuildParticipant extends MojoExecutionBuildParticipant {
 
 				outputDirectories.add(globalOutputDirectory);
 			}
+		}
+		
+		if (outputFile != null) {
+			outputDirectories.add(outputFile);
 		}
 
 		if (outputDirectories.size() == 0) {
