@@ -52,9 +52,9 @@
 	</issueManagement>
 
 	<scm>
-		<connection>scm:git:git@github.com:ianbrandt/m2e-maven-dependency-plugin.git</connection>
-		<url>scm:git:git@github.com:ianbrandt/m2e-maven-dependency-plugin.git</url>
-		<developerConnection>scm:git:git@github.com:ianbrandt/m2e-maven-dependency-plugin.git</developerConnection>
+		<connection>scm:git:git@github.com:terraframe/m2e-maven-dependency-plugin.git</connection>
+		<url>scm:git:git@github.com:terraframe/m2e-maven-dependency-plugin.git</url>
+		<developerConnection>scm:git:git@github.com:terraframe/m2e-maven-dependency-plugin.git</developerConnection>
 	</scm>
 
 	<properties>
