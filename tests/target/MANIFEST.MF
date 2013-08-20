@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Require-Bundle: org.eclipse.m2e.tests.common;bundle-version="1.0.0",or
+ g.junit;bundle-version="4.11",org.eclipse.m2e.core;bundle-version="1.
+ 0.0",org.eclipse.core.resources;bundle-version="3.4.2",org.eclipse.co
+ re.runtime;bundle-version="3.4.0",org.eclipse.jdt.core;bundle-version
+ ="3.4.4",com.ianbrandt.tools.m2e.mdp.core
+Bundle-Vendor: Ian Brandt
+Bundle-Version: 0.0.2.201308200043
+Bundle-Name: m2e connector for Maven Dependency Plugin Tests
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.ianbrandt.tools.m2e.mdp.tests
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+
