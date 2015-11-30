@@ -1,3 +1,13 @@
+/*******************************************************************************
+* Copyright (c) 2012 Ian Brandt
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*
+* Contributors:
+* Ian Brandt - initial API and implementation
+*******************************************************************************/
 package com.ianbrandt.tools.m2e.mdp.core;
 
 import java.beans.IntrospectionException;
@@ -10,9 +20,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.maven.plugin.MojoExecution;
+import org.apache.maven.project.MavenProject;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.IMaven;
 import org.eclipse.m2e.core.project.configurator.MojoExecutionBuildParticipant;
@@ -43,6 +57,13 @@ public class MdpBuildParticipant extends MojoExecutionBuildParticipant {
 			return null;
 		}
 
+		final IFile pomFile = (IFile) getMavenProjectFacade().getProject().findMember("pom.xml");
+		
+		// skipping the build if not a Full Build or if pom.xml has not changed
+		if(kind != IncrementalProjectBuilder.FULL_BUILD && !buildContext.hasDelta(pomFile.getLocation().toFile())) {
+			return null;
+		}
+		
 		setTaskName(monitor);
 
 		final Set<IProject> result = executeMojo(kind, monitor);
@@ -61,15 +82,16 @@ public class MdpBuildParticipant extends MojoExecutionBuildParticipant {
 			IntrospectionException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 
 		final Set<File> outputDirectories = new HashSet<File>();
+		final MavenProject mavenProject = getMavenProjectFacade().getMavenProject();
 
-		final File globalOutputDirectory = maven.getMojoParameterValue(getSession(), mojoExecution,
-				OUTPUT_DIRECTORY_PROPERTY, File.class);
+        final File globalOutputDirectory = maven.getMojoParameterValue(mavenProject, mojoExecution,
+                OUTPUT_DIRECTORY_PROPERTY, File.class, new NullProgressMonitor());
 		
-		final File outputFile = maven.getMojoParameterValue(getSession(), mojoExecution,
-				OUTPUT_FILE_PROPERTY, File.class);
+		final File outputFile = maven.getMojoParameterValue(mavenProject, mojoExecution,
+				OUTPUT_FILE_PROPERTY, File.class, new NullProgressMonitor());
 
-		final List<?> artifactItems = maven.getMojoParameterValue(getSession(), mojoExecution, ARTIFACT_ITEMS_PROPERTY,
-				List.class);
+		final List<?> artifactItems = maven.getMojoParameterValue(mavenProject, mojoExecution, ARTIFACT_ITEMS_PROPERTY,
+				List.class, new NullProgressMonitor());
 
 		Method getOutputDirectoryMethod = null;
 
@@ -117,7 +139,6 @@ public class MdpBuildParticipant extends MojoExecutionBuildParticipant {
 	}
 
 	private Set<IProject> executeMojo(final int kind, final IProgressMonitor monitor) throws Exception {
-
 		return super.build(kind, monitor);
 	}
 

@@ -9,6 +9,9 @@
 				<goals>
 					<goal>unpack</goal>
 					<goal>build-classpath</goal>
+					<goal>unpack-dependencies</goal>
+					<goal>copy</goal>
+					<goal>copy-dependencies</goal>
 				</goals>
 			</pluginExecutionFilter>
 			<action>

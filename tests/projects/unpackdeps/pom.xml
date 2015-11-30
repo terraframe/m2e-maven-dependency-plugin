@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.ianbrandt.tools.m2e.mdp.tests</groupId>
-	<artifactId>smoketest</artifactId>
+	<artifactId>unpackdeps</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<dependencies>
@@ -20,20 +20,13 @@
 				<version>2.4</version>
 				<executions>
 					<execution>
-						<id>test-unpack</id>
+						<id>test-unpack-dependencies</id>
 						<phase>generate-resources</phase>
 						<goals>
-							<goal>unpack</goal>
+							<goal>unpack-dependencies</goal>
 						</goals>
 						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>junit</groupId>
-									<artifactId>junit</artifactId>
-									<version>4.10</version>
-									<outputDirectory>${project.build.directory}/generated-resources/</outputDirectory>
-								</artifactItem>
-							</artifactItems>
+					    	<outputDirectory>${project.build.directory}/generated-resources/</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
